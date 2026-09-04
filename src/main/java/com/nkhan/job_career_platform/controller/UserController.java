@@ -2,6 +2,7 @@ package com.nkhan.job_career_platform.controller;
 
 import com.nkhan.job_career_platform.dto.PageResponseDto;
 import com.nkhan.job_career_platform.entity.User;
+import com.nkhan.job_career_platform.security.CustomUserDetails;
 import com.nkhan.job_career_platform.service.UserService;
 import com.nkhan.job_career_platform.dto.UserCreateRequestDto;
 import com.nkhan.job_career_platform.dto.UserResponseDto;
@@ -58,7 +59,10 @@ public class UserController {
     public ResponseEntity<UserResponseDto> getCurrentUser(
             Authentication authentication) {
 
-        User user = (User) authentication.getPrincipal();
+        CustomUserDetails userDetails =
+                (CustomUserDetails) authentication.getPrincipal();
+
+        User user = userDetails.getUser();
 
         return ResponseEntity.ok(
                 userService.getCurrentUser(user)
