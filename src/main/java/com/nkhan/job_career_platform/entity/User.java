@@ -62,6 +62,10 @@ public class User {
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role = Role.USER;
+
     @PrePersist
     protected void onCreate() {
         Instant now = Instant.now();
